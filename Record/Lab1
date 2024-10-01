@@ -1,0 +1,61 @@
+#include<stdio.h>
+#define height 5
+
+void push(int *s[], int *top, int el)
+{
+    printf("%d",*top);
+    if(*top == (height - 1))
+        printf("Stack overflow error\n");
+    else
+    {
+        *top++;
+        *s[*top] = el;
+    }
+}
+
+int pop(int *s, int *top)
+{
+    if(*top == -1)
+    {
+        printf("Stack underflow error\n");
+        return 0;
+    }
+    *top--;
+    return *s[*top - 1];
+}
+
+void display(int *s[], int *top)
+{
+    if(*top == -1)
+    {
+        printf("Stack is empty");
+        return;
+    }
+    for(int i = *top; i >= 0; i--)
+        printf("%d",*s[i]);
+}
+
+void main()
+{
+    int stack[5], top = -1, element, c;
+    printf("1. Insert into stack\n2. Delete from stack\n3. Display stack\nPress any other to exit\n");
+    while(1)
+    {
+        printf("Enter Option:\n");
+        scanf("%d",&c);
+        switch(c)
+        {
+            case 1: printf("Enter Element to insert: ");
+                    scanf("%d",element);
+                    push(&stack, &top, element);
+                    display(&stack, &top);
+                    break;
+            case 2: if(element = pop(&stack, &top) != 0)
+                        printf("Element popped: %d\n");
+                    break;
+            case 3: display(&stack, &top);
+                    break;
+            default: exit(0);
+        }
+    }
+}
