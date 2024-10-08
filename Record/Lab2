@@ -1,69 +1,72 @@
 # include <stdio.h>
 # include <string.h>
-# include <conio.h>
 
-void push(int s[], int *top, char e);
-char pop(int s[], int *top);
+char s[10];
+int top = -1;
+void push(char e);
+char pop();
 int precedence(char e);
 
 void main()
 {
-    int top, i = 0, postfixi = 0;
-    char infix[10], postfix[10] = {'\0'}, element, temp, stack[10];
+    int i = 0, postfixi = 0;
+    char infix[10], postfix[10] = {'\0'}, element, temp;
     //push(stack, &top, '1');
     printf("Enter Expression: ");
     scanf("%s", infix);
-    printf("%s", infix);
     while(i < strlen(infix))
     {
         element = infix[i];
-        printf("Element: %c\n", element);
-        printf("Postfix Expression: %s\n",postfix);
         switch(element)
         {
-            case '(' :  push(stack, &top, element);
+            case '(' :  push(element);
                         break;
-            case ')' :  temp = pop(stack, &top);
+            case ')' :  temp = pop();
                         while(temp != '(')
                         {
                             postfix[postfixi++] = temp;
-                            temp = pop(stack, &top);
+                            temp = pop();
                         }
                         break;
             case '+' :
             case '-' :
             case '*' :
             case '/' :
-            case '^' :  while(precedence(element) < precedence(stack[top]))
+            case '^' :  while(precedence(element) < precedence(s[top]))
                         {
-                            char temp = pop(stack, &top);
+                            temp = pop();
                             postfix[postfixi++] = temp;
                         }
-                        push(stack, &top, element);
+                        push(element);
+                        break;
             default:    postfix[postfixi++] = element;
 
         }
         i++;
     }
     while(top > -1)
-        postfix[postfixi++] = pop(stack, &top);
+        postfix[postfixi++] = pop();
     printf("Postfix Expression: %s",postfix);
 }
 
-void push(int s[], int *top, char e)
+void push(char e)
 {
-    s[++*top] = e;
+    top++;
+    s[top] = e;
 }
 
-char pop(int s[], int *top)
+char pop()
 {
-    return s[*top--];
+    char temp = s[top];
+    top-=1;
+    return temp;
 }
 
 int precedence(char e)
 {
     switch(e)
     {
+        case ')':  return 4;
         case '^':  return 3;
         case '*':
         case '/':  return 2;
