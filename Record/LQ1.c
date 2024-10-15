@@ -13,8 +13,7 @@ void insert(int Q[], int *fr, int *re, int el)
         *re = 0;
         *fr = 0;
     }
-    Q[*re] = el;
-    *re += 1;
+    Q[(*re)++] = el;
 }
 
 int deleted(int Q[], int *fr, int *re)
@@ -24,8 +23,7 @@ int deleted(int Q[], int *fr, int *re)
         printf("Queue is empty");
         return -1;
     }
-    int el = Q[*fr];
-    *fr += 1;
+    int el = Q[(*fr)++];
     if(*fr == *re)
     {
         *fr = -1;
