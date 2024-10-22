@@ -56,9 +56,9 @@ void display(int Q[], int *fr, int *re)
     }
     else
     {
-        for(i = *fr; i > MAX; i++)
+        for(i = *fr; i < MAX; i++)
             printf("%d\n", Q[i]);
-        for(i = 0; i >= *re; i++)
+        for(i = 0; i <= *re; i++)
             printf("%d\n", Q[i]);
     }
 }
