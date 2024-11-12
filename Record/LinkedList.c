@@ -69,6 +69,7 @@ void insert_end()
     {
         start = new1;
         new1->link = NULL;
+        return;
     }
     ptr = start;
     while(ptr->link != NULL)
@@ -89,13 +90,14 @@ void insert_pos(int pos)
     {
         start = new1;
         new1->link = NULL;
+        return;
     }
-    int i;
-    for(ptr = start; ptr != NULL || i < pos - 1; ptr = ptr->link)
+    int i;ptr = start;
+    for(i = 0; ptr != NULL && i < pos - 1; ptr = ptr->link)
     {
         i++;
     }
-    if(ptr == NULL)
+    if(ptr ==NULL)
     {
         printf("Entered position is greater than number of elements\n");
         return;
@@ -123,9 +125,15 @@ void delete_end()
         printf("Linked List is empty\n");
         return;
     }
-    Node *ptr2;
-    for(ptr = start; ptr->link != NULL; ptr = ptr->link){}
-    for(ptr2 = start; ptr2->link != ptr; ptr2 = ptr2->link){}
+    if(start->link == NULL)
+    {
+        free(start);
+        return;
+    }
+    Node *ptr2 = start;
+    for(ptr = start->link; ptr->link != NULL; ptr = ptr->link){
+        ptr2 = ptr2->link;
+    }
     free(ptr);
     ptr2->link = NULL;
 }
@@ -137,8 +145,8 @@ void delete_pos(int pos)
         printf("Linked List is empty\n");
         return;
     }
-    int i;
-    for(ptr = start; ptr != NULL || i < pos - 1; ptr = ptr->link)
+    int i = 0;
+    for(ptr = start; ptr != NULL && i < pos - 1; ptr = ptr->link)
     {
         i++;
     }
