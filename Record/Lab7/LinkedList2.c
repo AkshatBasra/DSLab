@@ -74,6 +74,49 @@ void createA()
     curr->link = NULL;
 }
 
+void sort()
+{
+    int len = 0, itr = 0, swapped;
+    for(ptr = start; ptr != NULL; ptr = ptr->link)
+    {
+        len++;
+    }
+    while (itr < len)
+    {
+        node *traverse = start;
+        node *prev = start;
+        swapped = 0;
+        while (traverse->link != NULL)
+        {
+            ptr = traverse->link;
+            if (traverse->data > ptr->data)
+            {
+                swapped = 1;
+                if (traverse == start)
+                {
+                    traverse->link = ptr->link;
+                    ptr->link = traverse;
+                    prev = ptr;
+                    start = prev;
+                }
+                else
+                {
+                    traverse->link = ptr->link;
+                    ptr->link = traverse;
+                    prev->link = ptr;
+                    prev = ptr;
+                }
+                continue;
+            }
+            prev = traverse;
+            traverse = traverse->link;
+        }
+        if (!swapped)
+            break;
+        ++itr;
+    }
+}
+
 void display(node *startTemp)
 {
     if(startTemp == NULL)
@@ -101,5 +144,8 @@ void main()
     display(start);
     printf("Reversing the list\n");
     reverse();
+    display(start);
+    printf("Sorting the list\n");
+    sort();
     display(start);
 }
