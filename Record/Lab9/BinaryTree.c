@@ -81,22 +81,64 @@ void postorder(Node *temp)
     }
 }
 
+int getLevelCount(Node *node)
+{
+    if (node == NULL)
+    {
+        return 0;
+    }
+    int leftMaxLevel = 1 + getLevelCount(node->left);
+    int rightMaxLevel = 1 + getLevelCount(node->right);
+    if (leftMaxLevel > rightMaxLevel)
+    {
+        return leftMaxLevel;
+    }
+    else
+    {
+        return rightMaxLevel;
+    }
+}
+
+void printLevel(Node *node, int level)
+{
+    if (node != NULL && level == 0)
+    {
+        printf("%s\n", node->data);
+    }
+    else if (node != NULL)
+    {
+        printLevel(node->left, level - 1);
+        printLevel(node->right, level - 1);
+    }
+}
+
+void printElements(Node *node)
+{
+    int i;
+    int levelCount = getLevelCount(node);
+    for (i = 0; i < levelCount; i++)
+    {
+        printLevel(node, i);
+    }
+}
+
 void main()
 {
     int ch;
     printf("Create a Binary Tree:\n");
     create();
-    printf("Display the Tree: ");
-    printf("1. Pre Order\n2. In Order\n3. Post Order\n4. Exit\n");
+    printf("Display the Tree:\n");
+    printf("1. Pre Order\n2. In Order\n3. Post Order\n4. Level Wise\n5. Exit\n");
     while(1)
     {
         printf("\nEnter Choice: ");
         scanf("%d", &ch);
         switch(ch)
         {
-            case 1: preorder(root);break;
-            case 2: inorder(root);break;
-            case 3: postorder(root);break;
+            case 1: preorder(root); break;
+            case 2: inorder(root); break;
+            case 3: postorder(root); break;
+            case 4: printElements(root); break;
             default:exit(0);
         }
     }
