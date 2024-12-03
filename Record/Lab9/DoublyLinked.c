@@ -13,7 +13,7 @@ Node *ptr, *start = NULL, *new1, *curr;
 
 void create()
 {
-    int c = 1;
+    char c;
     new1 = (Node *) malloc(sizeof(Node));
     printf("Enter data: ");
     scanf("%d", &new1->data);
@@ -22,22 +22,22 @@ void create()
     curr = new1;
     while(1)
     {
-        printf("Create another element?(1: Yes) ");
-        scanf("%d",&c);
-    }
-    if(c == 1)
-    {
-        new1 = (Node *) malloc(sizeof(Node));
-        printf("Enter data: ");
-        scanf("%d", &new1->data);
-        new1->prev = curr;
-        curr->next = new1;
-        curr = new1;
-    }
-    else
-    {
-        curr->next = NULL;
-        return;
+        printf("Create another element?(Y/N) ");
+        scanf(" %c",&c);
+        if(c == 'y'|| c == 'Y')
+        {
+            new1 = (Node *) malloc(sizeof(Node));
+            printf("Enter data: ");
+            scanf("%d", &new1->data);
+            new1->prev = curr;
+            curr->next = new1;
+            curr = new1;
+        }
+        else
+        {
+            curr->next = NULL;
+            return;
+        }
     }
 }
 
@@ -88,7 +88,7 @@ void insert_end()
     {
         ptr = ptr->next;
     }
-    new1->prev = temp;
+    new1->prev = ptr;
     ptr->next = new1;
     new1->next = NULL;
 }
@@ -226,4 +226,3 @@ void main()
         }
     }
 }
-
