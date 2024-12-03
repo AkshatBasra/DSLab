@@ -165,19 +165,23 @@ void delete_spec()
         start = start->next;
         start->prev = NULL;
         free(ptr);
+        return;
     }
     for(ptr = start; ptr->next != NULL && ptr->data != el; ptr = ptr->next){}
+    if(ptr->data == el && ptr->next == NULL)
+    {
+        ptr->prev->next = ptr->next;
+        free(ptr);
+        return;
+    }
     if(ptr->data == el)
     {
         ptr->prev->next = ptr->next;
         ptr->next->prev = ptr->prev;
         free(ptr);
-    }
-    if(ptr == NULL)
-    {
-        printf("Element not found\n");
         return;
     }
+    printf("Element not found\n");
 }
 
 void main()
